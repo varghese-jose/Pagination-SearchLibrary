@@ -133,7 +133,6 @@ class searching
     }
     function searching_data($ids_of_string)
     {   
-        
         $Date1='';
         $month='';
         $year='';
@@ -272,7 +271,7 @@ class searching
     }
 
     function get_ids($result,$string,$get_ids)
-    {   
+    { 
         for($i=0;$i<sizeof($get_ids);$i++)
         {   
            if(!isset($ids[$get_ids[$i]])) 

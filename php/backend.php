@@ -1,8 +1,8 @@
 <?php
 
-	require_once('/Applications/MAMP/htdocs/Mock_test_1/search_library/search.php');
+	require_once('../search_library/search.php');
 
-	require_once('/Applications/MAMP/htdocs/Mock_test_1/pagination1.0/prepared_query.php');
+	require_once('../pagination1.0/prepared_query.php');
 
 
 	$application_obj = new ManageApp();
@@ -97,7 +97,7 @@
 
 	        $user='root';
 
-			$connection= mysqli_connect ($host, $user, "root" , $db); 
+			$connection= mysqli_connect ($host, $user, "" , $db); 
 			if (!$connection) 
 			{
 				die ( "no connection found" . mysqli_error($connection));
@@ -186,6 +186,7 @@
 		    $params = array($data_from,$data_to);
 
         	$extra_slots_entry= mysqli_prepared_query($connection_mock_chat,$query,"ii",$params);
+
 		        if($extra_slots_entry)
 		        {
 		            foreach ($extra_slots_entry as $val)
@@ -193,10 +194,11 @@
 		                $res_here=$val;
 		                $res_here['max_page']=$max_page;
 		                $res_here['total_length'] =$total_length;
-		                $Name=$val['name'];
-		                $Email=$val['email'];
-		                $phoneNum=$val['phone'];
-		                $Gender=$val['gender'];
+		                $Name=$val['Name'];
+		                $Email=$val['Email'];
+		                $phoneNum=$val['Phone'];
+		                $Gender=$val['Gender'];
+
 		                $res_here['name']=$Name;
 		                $res_here['email']=$Email;
 		                $res_here['phoneNum']=$phoneNum;
@@ -204,6 +206,7 @@
 		                $response[]=$res_here;   
 		            }
 		        } 
+
 		        return $response;
 		}
 

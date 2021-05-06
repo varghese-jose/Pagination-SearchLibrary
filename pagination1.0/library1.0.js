@@ -221,8 +221,8 @@
 
             $(document).ready(function()
             { 
-                $("head").append('<script type="text/javascript" src="/./Mock_test_1/pagination1.0/simplePagination.js-master/jquery.simplePagination.js"></script>');
-                $("head").append('<link rel="stylesheet" href="/./Mock_test_1/pagination1.0/simplePagination.js-master/simplePagination.css">');
+                $("head").append('<script type="text/javascript" src="/./Pagination-SearchLibrary/pagination1.0/simplePagination.js-master/jquery.simplePagination.js"></script>');
+                $("head").append('<link rel="stylesheet" href="/./Pagination-SearchLibrary/pagination1.0/simplePagination.js-master/simplePagination.css">');
 
                 $("#"+pagi_id).pagination(
                 {      
@@ -413,7 +413,7 @@
                 manage_buffer.manage_buffer_SendAjax(ajax_data,ajax_url);
             } 
         }
-        $(document).on("keyup","#txt-search", function() 
+        $(document).on("keyup","#txt-search1", function() 
         {   
 
         
@@ -471,6 +471,69 @@
             }
                
         });
+
+            $(document).on("keyup","#txt-search", function() 
+        {   
+             var value = $(this).val();
+
+        if(value=='')
+        {
+
+            var div_id=$(this).attr('selectd_div');
+            var div_data=div_data_container[div_id];
+
+            if (this.ajax_timeout !="")
+            {
+
+                clearTimeout(this.ajax_timeout);
+            }
+           
+                    delete div_data['ajax_data'].request;
+                    delete div_data['ajax_data'].buffer_data;
+                    delete div_data['ajax_data'].data_per_page;
+                    delete div_data['ajax_data'].input_value;
+
+                    var type='data';
+                    var ajax_url=div_data['ajax_url'];
+                    var ajax_data=div_data['ajax_data'];
+                    var table_div_id=div_data['table_div_id'];
+                    var input_value=value;
+                    var data_per_page=div_data['data_per_page'];
+                    var search_enable_or_desiable=true;
+                    var reload='reload';
+                    make_table_pagination(ajax_url,ajax_data,table_div_id,data_per_page,search_enable_or_desiable,input_value,type,reload);
+        }
+        else
+        {
+
+
+
+                    $.ajax({ 
+                        type:"POST",
+                        async: "false",
+                        url:'emailsearch.php',
+                        data:{value:value},
+                        dataType: "html",
+                        beforeSend()
+                        {
+                           
+                        },
+                        success(data)
+                        {    
+                            
+                          $('#myTable').html(data);
+
+                        },
+                        error: function() 
+                        {
+                            
+                            console.log("Error occured!");
+                        }
+                    }); 
+
+        }
+        });
+
 
 
 
